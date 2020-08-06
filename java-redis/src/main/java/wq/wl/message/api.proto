@@ -1,0 +1,32 @@
+syntax = "proto2";
+
+package codec;
+option java_package = "wq.wl.message";
+option java_outer_classname = "Message";
+
+enum CommandType {
+    GET = 0;
+    SET = 1;
+    DEL = 2;
+}
+
+message Command {
+    required uint64 command_id = 1; // 请求id
+    required CommandType command_type = 2;
+    optional string key = 3;
+    optional string value = 4;
+}
+
+enum ResCode {
+    RES_SUCCESS = 0;
+    RES_FAIL = 1;
+}
+
+message Result {
+    required uint64 command_id = 1; // 请求id
+    required ResCode res_code = 2; // 返回码，0：成功，1：失败
+    optional string res_msg = 3; // 返回失败时的错误消息
+    optional string result = 4;
+}
+
+
